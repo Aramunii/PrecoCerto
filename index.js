@@ -4,9 +4,9 @@ const fs = require('fs');
 
 async function scrapeMagaluOffers() {
   try {
-    const baseUrl = 'https://www.magazineluiza.com.br/selecao/ofertasdodia/?filters=category---IN';
+    const baseUrl = 'https://www.magazineluiza.com.br/utilidades-domesticas/l/ud/';
     const startPage = 1;
-    const endPage = 2;
+    const endPage = 4;
     let allProducts = [];
 
     // Load existing products if the file exists
@@ -24,9 +24,11 @@ async function scrapeMagaluOffers() {
       const $ = cheerio.load(response.data);
 
       $('.sc-dCFHLb').each((index, element) => {
-        const imageUrl = $(element).find('.sc-eBMEME img').attr('src');
+
+        const imageUrl = $(element).find('[data-testid="image"]').attr('src');
         const productName = $(element).find('.sc-APcvf').text().trim();
         const price = $(element).find('[data-testid="price-original"]').text().trim();
+        console.log(productName);
 
         allProducts.push({
           imageUrl,
