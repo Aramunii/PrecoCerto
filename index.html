@@ -383,11 +383,11 @@
                 return;
             }
             const guessInput = document.getElementById("guessInput").value.replace('.', '').replace(',', '.');
-            const guess = parseFloat(guessInput);
+            guess = parseFloat(guessInput);
             let price_parseado = currentProduct.price.replace('R$', '')
             price_parseado = price_parseado.replace('.', '')
             price_parseado = price_parseado.replace(',', '.');
-            const actualPrice = parseFloat(price_parseado);
+            actualPrice = parseFloat(price_parseado);
 
             console.log('Palpite (input):', guessInput);
             console.log('Palpite (parseado):', guess);
@@ -462,17 +462,15 @@
         }
 
         function shareResult() {
-            const productName = currentProduct.name;
+            const productName = currentProduct.productName;
             const points = document.getElementById("resultMessage").textContent.match(/\d+/)[0];
             const percentDifference = document.getElementById("percentValue").textContent;
-            const guess = parseFloat(document.getElementById("guessValue").textContent);
-            const actualPrice = parseFloat(document.getElementById("actualPriceValue").textContent);
             
             const emoji = points >= 90 ? "🏆" : points >= 70 ? "🌟" : points >= 50 ? "👍" : "💪";
             
             const shareText = `${emoji} Desafio Adivinhe o Preço! ${emoji}\n\n` +
                 `Meu palpite para "${productName}" ficou ${percentDifference}% do preço real!\n` +
-                `Meu palpite: R$${guess.toFixed(2)} | Preço real: R$${actualPrice.toFixed(2)}\n` +
+                `Meu palpite: R$ ${guess.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).replace('R$', '').trim()} | Preço real: R$ ${actualPrice.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).replace('R$', '').trim()}\n` +
                 `Fiz incríveis ${points} pontos! 🎉\n\n` +
                 `Consegue fazer melhor? Venha jogar e teste seus conhecimentos de preços!\n` +
                 `#AdivinheOPreço #DesafioDePrecificação`;
